@@ -9,15 +9,20 @@ const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string
 
 function InitialLayout() {
     const { isSignedIn, isLoaded } = useAuth()
-     
+
+    let typeUser: string
 
     // Usar validações do banco para saber pra onde o user vai
     useEffect(() => {
         if (!isLoaded) return
 
         if (isSignedIn) {
-            // definir se e tec ou user
-            router.replace("/(auth)")
+            typeUser = "User"
+            if (typeUser === "User" ) {
+                router.replace("/(auth)/(user)")
+            } else {
+                router.replace("/(auth)/(technical)")
+            }
         } else (
             //mudar para registro
             router.replace("/(public)")
