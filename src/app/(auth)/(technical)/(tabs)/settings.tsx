@@ -1,4 +1,5 @@
-import { ButtonLogout } from '@/components/buttonLogut';
+
+import { ButtonLogout } from '@/src/component/buttonLogut';
 import React from 'react';
 import { View, Text } from 'react-native';
 

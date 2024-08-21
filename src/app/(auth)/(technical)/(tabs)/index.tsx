@@ -1,4 +1,4 @@
-import { ButtonLogout } from '@/components/buttonLogut';
+
 import React from 'react';
 import { View, Text } from 'react-native';
 
@@ -8,7 +8,6 @@ export default function WelcomeScreen() {
       <Text className='text-xl font-bold text-blue-500'>
         Bem vindo Tecnico
       </Text>
-      <ButtonLogout />
     </View>
   );
 }

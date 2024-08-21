@@ -1,14 +1,15 @@
-import { ButtonLogout } from '@/components/buttonLogut';
+
+import { Header } from '@/src/component/header';
 import React from 'react';
 import { View, Text } from 'react-native';
 
 export default function WelcomeScreen() {
   return (
-    <View className='flex-1 justify-center items-center bg-white'>
-      <Text className='text-xl font-bold text-blue-500'>
-        Tela das conversas
+    <View className='flex-1 items-center bg-white gap-10'>
+      <Header title='Conversas'/>
+      <Text className='text-lg font-bold opacity-40'>
+        Você não tem nenhuma conversa ativa
       </Text>
-      
     </View>
   );
 }

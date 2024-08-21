@@ -1,4 +1,5 @@
-import { ButtonsLogin } from "@/components/ui/buttonsLogin";
+
+import { ButtonsLogin } from "@/src/component/ui/buttonsLogin";
 import { View, Image } from "react-native";
 
 

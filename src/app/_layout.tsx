@@ -3,7 +3,7 @@ import { router, Slot } from "expo-router"
 import "../styles/global.css"
 import { useEffect } from "react"
 import { ActivityIndicator } from "react-native"
-import { Token } from "@/storage/token"
+import { Token } from "../storage/token"
 
 const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string
 
@@ -30,7 +30,7 @@ function InitialLayout() {
     }, [isSignedIn])
 
     return isLoaded ? (
-        <Slot />
+        <Slot/>
     ) : (
         <ActivityIndicator
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}

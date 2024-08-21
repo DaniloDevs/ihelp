@@ -1,6 +1,5 @@
 import { View } from "react-native"
 import { ButtonLogin } from "../buttonLogin"
-import { router } from "expo-router"
 import * as WebBrowser from 'expo-web-browser'
 import * as Link from 'expo-linking'
 import { useEffect, useState } from "react"
