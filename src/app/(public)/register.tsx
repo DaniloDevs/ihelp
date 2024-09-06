@@ -1,12 +1,22 @@
 
-import { ButtonsLogin } from "@/src/components/ui/buttonsLogin";
-import { View, Image, Text } from "react-native";
+import { Header } from "@/src/components/header";
+import Container from "@/src/components/ui/container";
+import { View } from "react-native";
 
 
 export default function Register() {
      return (
-          <View className="flex-1 gap-14 items-center justify-center p-10  ">
-              Tela de registro
-          </View>
+          <Container >
+               <Header title="Cadastro" />
+
+               <View className="my-auto">
+                    {/* 
+                         // nome sobrenome
+                         //email
+                         //telefone genero
+                         // Tipo de usuario 
+                    */}
+               </View>
+          </Container>
      )
 }

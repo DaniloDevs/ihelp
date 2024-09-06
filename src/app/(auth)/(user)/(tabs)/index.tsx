@@ -1,16 +1,18 @@
 
 import { Header } from '@/src/components/header';
+import Container from '@/src/components/ui/container';
 import React from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { useUser } from "@clerk/clerk-expo";
 
 
 export default function IndexScreen() {
-
+  const { user } = useUser()
   return (
-    <View className='flex-1 items-center bg-white gap-40'>
+    <Container>
+      <Header url={user?.imageUrl} />
 
-      <Header />
-      <View className='w-10/12 items-center gap-8'>
+      <View className='w-10/12 items-center gap-10  my-auto'>
 
         <View className='items-center'>
           <Text className='text-center text-xl'>
@@ -24,7 +26,7 @@ export default function IndexScreen() {
           className='bg-[#2158AC] w-64 h-64 items-center justify-center rounded-full'
           onPress={() => {
             Alert.alert('🚧 Em desenvolvimento 🚧', 'A funcionalidade ainda está sendo desenvolvida.', [
-              { text: ' OK', onPress: () => console.log('OK Pressed') },
+              { text: ' OK' },
             ]);
           }}
         >
@@ -33,6 +35,6 @@ export default function IndexScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </Container>
   );
 }

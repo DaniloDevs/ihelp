@@ -1,18 +1,21 @@
 import { ButtonLogout } from '@/src/components/buttonLogut';
 import { Header } from '@/src/components/header';
 import { ButtonsSettings } from '@/src/components/ui/buttonsSettings';
+import Container from '@/src/components/ui/container';
+import { useUser } from '@clerk/clerk-expo';
 import React from 'react';
 import { View } from 'react-native';
 
 export default function SettingsScreen() {
+  const { user } = useUser()
   return (
-    <View className='flex-1 items-center bg-white gap-10 pb-10'>
-      <Header title='Configuração' />
+    <Container>
+      <Header title='Configuração' url={user?.imageUrl}/>
 
       <View className=' h-5/6 w-10/12 justify-between align-middle items-center'>
         <ButtonsSettings />
         <ButtonLogout />
       </View>
-    </View>
+    </Container>
   );
 }

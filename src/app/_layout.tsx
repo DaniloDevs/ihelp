@@ -40,7 +40,7 @@ function InitialLayout() {
                     console.error("Erro ao buscar usuário:", error.message)
                 }
             } else {
-                router.replace("/(public)/login");
+                router.replace("/register");
             }
         };
 
