@@ -1,6 +1,6 @@
-import { ButtonLogout } from '@/src/component/buttonLogut';
-import { Header } from '@/src/component/header';
-import { ButtonsSettings } from '@/src/component/ui/buttonsSettings';
+import { ButtonLogout } from '@/src/components/buttonLogut';
+import { Header } from '@/src/components/header';
+import { ButtonsSettings } from '@/src/components/ui/buttonsSettings';
 import React from 'react';
 import { View } from 'react-native';
 

@@ -1,5 +1,5 @@
 
-import { Header } from '@/src/component/header';
+import { Header } from '@/src/components/header';
 import React from 'react';
 import { View, Text } from 'react-native';
 

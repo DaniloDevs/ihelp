@@ -21,7 +21,7 @@ function InitialLayout() {
             if (isSignedIn) {
                 try {
                     console.log(user?.id)
-                    const response = await axios.get(`http://10.0.5.222:3031/user/${user?.id}`)
+                    const response = await axios.get(`http://192.168.1.25:3031/user/${user?.id}`)
                     setData(response.data);
                     console.log(data)
 
