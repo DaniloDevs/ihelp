@@ -11,7 +11,6 @@ interface CardProps {
 export function CardOrder({ tecnico,preco, categoria, servivo, imgUrl }: CardProps) {
      return (
           <TouchableOpacity activeOpacity={0.6} className='w-4/5 rounded-xl border p-4 border-gray-200 shadow-lg gap-10 bg-slate-50'>
-
                <View className='flex flex-row justify-between'>
                     <View>
                          <View className='flex flex-row justify-between  items-center'>

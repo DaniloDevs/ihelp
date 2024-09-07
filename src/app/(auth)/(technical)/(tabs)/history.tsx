@@ -9,7 +9,7 @@ export default function HitoryScreen() {
   const { user } = useUser()
   return (
     <Container>
-      <Header title='Historico de Chamados' url={user?.imageUrl} />
+      <Header title='Historico de Serviços' url={user?.imageUrl} />
       <UnderConstruction />
     </Container>
   )

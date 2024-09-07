@@ -4,18 +4,29 @@ import { ButtonSettings } from "../buttonSettings";
 export function ButtonsSettings() {
      return (
           <View className='w-11/12'>
-               <ButtonSettings title="Editar perfil" onPress={() => {
-                    Alert.alert('🚧 Em desenvolvimento 🚧', 'A funcionalidade ainda está sendo desenvolvida.', [
-                         { text: ' OK', onPress: () => console.log('OK Pressed') },
-                    ]);
+               <ButtonSettings title="Conta" onPress={() => {
+                    Alert.alert('🚧 Em desenvolvimento 🚧', 'A funcionalidade ainda está sendo desenvolvida.', [{
+                         text: ' OK'
+                    }])
+               }}
+               />
 
-               }} />
-               <ButtonSettings title="Mudar tema" onPress={() => {
-                    Alert.alert('🚧 Em desenvolvimento 🚧', 'A funcionalidade ainda está sendo desenvolvida.', [
-                         { text: 'OK', onPress: () => console.log('OK Pressed') },
-                    ]);
+               <ButtonSettings title="Notificação" onPress={() => {
+                    Alert.alert('🚧 Em desenvolvimento 🚧', 'A funcionalidade ainda está sendo desenvolvida.', [{
+                         text: 'OK'
+                    }
+                    ])
+               }}
+               />
 
-               }} />
+               <ButtonSettings title="Termos e Privacidade" onPress={() => {
+                    Alert.alert('🚧 Em desenvolvimento 🚧', 'A funcionalidade ainda está sendo desenvolvida.', [{
+                         text: 'OK'
+                    }
+                    ])
+               }}
+               />
+
           </View>
      )
 }

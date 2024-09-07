@@ -1,4 +1,3 @@
-
 import { Header } from '@/src/components/header';
 import Container from '@/src/components/ui/container';
 import React from 'react';
@@ -6,7 +5,7 @@ import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useUser } from "@clerk/clerk-expo";
 
 
-export default function IndexScreen() {
+export default function HomeScreenUser() {
   const { user } = useUser()
   return (
     <Container>

@@ -12,7 +12,7 @@ export default function SettingsScreen() {
     <Container>
       <Header title='Configuração' url={user?.imageUrl}/>
 
-      <View className=' h-5/6 w-10/12 justify-between align-middle items-center'>
+      <View className='my-auto flex flex-col gap-10 w-10/12 align-middle items-center'>
         <ButtonsSettings />
         <ButtonLogout />
       </View>

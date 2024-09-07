@@ -31,7 +31,7 @@ export function Header({ title, url }: CardProps) {
 
                {!url ? (
                     <TouchableOpacity
-                         className='flex flex-row gap-2 hidden align-middle items-center bg-slate-50  border-black border-2 rounded-full'
+                         className=' flex-row gap-2 hidden align-middle items-center bg-slate-50  border-black border-2 rounded-full'
                          onPress={() => {
                               Alert.alert('🚧 Em desenvolvimento 🚧', 'A funcionalidade ainda está sendo desenvolvida.', [
                                    { text: ' OK', onPress: () => console.log('OK Pressed') },
