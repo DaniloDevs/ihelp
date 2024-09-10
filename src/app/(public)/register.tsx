@@ -2,6 +2,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { Header } from "@/src/components/header";
 import Container from "@/src/components/ui/container";
 import { View } from "react-native";
+import { Input, InputField } from "@/components/ui/input";
 
 
 interface Inputs {
@@ -18,7 +19,13 @@ export default function Register() {
           <Container >
                <Header title="Cadastro" />
 
-               <View className="my-auto">
+               <View className="my-auto w-full">
+                    <Input
+                    className="w-1/3 bg-red-300"
+                         size="lg"
+                    >
+                         <InputField placeholder="Enter Text here..." />
+                    </Input>
                     {/* 
                          // nome sobrenome
                          //email

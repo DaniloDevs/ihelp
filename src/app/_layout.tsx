@@ -9,44 +9,48 @@ import axios from "axios"
 const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string
 
 function InitialLayout() {
-    const [data, setData] = useState();
+    const [data, setData] = useState<any>();
     const { isSignedIn, isLoaded } = useAuth()
     const { user } = useUser()
 
 
     useEffect(() => {
-        if (!isLoaded) return;
+        if (!isLoaded) return; // Aguarda o carregamento do contexto
 
         const checkUser = async () => {
             if (isSignedIn) {
                 try {
-                    console.log(user?.id)
-                    const response = await axios.get(`http://192.168.1.25:3031/user/${user?.id}`)
-                    setData(response.data);
-                    console.log(data)
+                    if (!user?.id) {
+                        console.error("ID de usuário não disponível");
+                        return;
+                    }
 
-                    if (response.data.existUser === true) {
-                        const typeUser = "User"
+                    // Realiza a requisição para o servidor
+                    const response = await axios.get(`http://10.0.0.120:3031/user/${user.id}`);
+                    const data = response.data; // Supondo que os dados da resposta estão em `data`
 
-                        if (typeUser === "User") {
-                            router.replace("/(auth)/(user)")
+                    if (data.existUser) {
+                        // Verifica o tipo de usuário
+                        if (data.user.userType === "User") {
+                            router.replace("/(auth)/(user)");
                         } else {
-                            router.replace("/(auth)/(technical)")
+                            router.replace("/(auth)/(technical)");
                         }
                     } else {
-                        router.replace("/register")
+                        // Se o usuário não existe, redireciona para a página de registro
+                        router.replace("/register");
                     }
                 } catch (error: any) {
-                    console.error("Erro ao buscar usuário:", error.message)
+                    console.error("Erro ao buscar usuário:", error.message);
                 }
             } else {
-                router.replace("/register");
+                // Se o usuário não está autenticado, redireciona para a página de login
+                router.replace("/login");
             }
         };
 
         checkUser();
-    }, [isSignedIn]);
-
+    }, [isSignedIn, isLoaded, user, router]);
 
     return isLoaded ? (
         <Slot />
