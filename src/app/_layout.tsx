@@ -45,7 +45,8 @@ function InitialLayout() {
                 }
             } else {
                 // Se o usuário não está autenticado, redireciona para a página de login
-                router.replace("/login");
+                // router.replace("/login");
+                router.replace("/register");
             }
         };
 
