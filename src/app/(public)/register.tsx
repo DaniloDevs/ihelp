@@ -3,6 +3,9 @@ import { Header } from "@/src/components/header";
 import Container from "@/src/components/ui/container";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Input, InputField } from "@/components/ui/input";
+import axios from "axios";
+import { router } from "expo-router"
+import { useUser } from "@clerk/clerk-expo";
 
 
 interface IFormInput {
@@ -15,10 +18,49 @@ interface IFormInput {
 }
 
 export default function Register() {
-     const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm<IFormInput>();
+     const { user } = useUser()
+     const { control, handleSubmit, formState: { errors }, reset } = useForm<IFormInput>({
+          defaultValues: {
+               firstName: user?.firstName || '',
+               lastName: user?.lastName || '',
+               email: user?.primaryEmailAddress?.emailAddress || '',
+               cellPhone: user?.phoneNumbers?.[0]?.phoneNumber || '',
+          }
+     });
 
-     const onSubmit: SubmitHandler<IFormInput> = (data) => {
-          console.log(data)
+
+
+     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+          const id = user?.id
+          try {
+               const response = await axios.post('http://10.0.2.40:3031/user', {
+                    id, // id vindo do Clerk
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    gender: data.gender,
+                    phoneNumber: data.cellPhone,
+                    userType: data.userType,
+               });
+               console.log(user)
+               console.log('Usuário criado com sucesso:', response.data);
+
+               // Resetando o formulário após a submissão
+
+               reset();
+               router.replace('/');
+          } catch (error: any) {
+               // Tratamento de erros
+               if (error.response) {
+                    console.error('Erro na resposta do servidor:', error.response.data);
+                    console.error('Status do erro:', error.response.status);
+               } else if (error.request) {
+                    console.error('Erro na requisição:', error.request);
+               } else {
+                    console.error('Erro ao configurar a requisição:', error.message);
+               }
+          }
+
      }
      return (
           <Container >
@@ -30,28 +72,41 @@ export default function Register() {
                               <Text>Nomes</Text>
                               <Controller
                                    control={control}
-                                   name="firstName"
-                                   render={({ field }) => (
+                                   rules={{
+                                        required: true,
+                                   }}
+                                   render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                             {...field}
-                                             placeholder="Nome"
+                                             placeholder="First name"
+                                             onBlur={onBlur}
+                                             onChangeText={onChange}
+                                             value={value}
                                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+
                                         />
                                    )}
+                                   name="firstName"
                               />
                          </View>
+
                          <View className="w-[48%] h-20">
                               <Text>Sobrenome</Text>
                               <Controller
                                    control={control}
-                                   name="lastName"
-                                   render={({ field }) => (
+                                   rules={{
+                                        maxLength: 100,
+                                   }}
+                                   render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                             {...field}
-                                             placeholder="Sobrenome"
+                                             placeholder="Last name"
+                                             onBlur={onBlur}
+                                             onChangeText={onChange}
+                                             value={value}
                                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+
                                         />
                                    )}
+                                   name="lastName"
                               />
                          </View>
                     </View>
@@ -61,14 +116,19 @@ export default function Register() {
                               <Text>Email</Text>
                               <Controller
                                    control={control}
-                                   name="email"
-                                   render={({ field }) => (
+                                   rules={{
+                                        maxLength: 100,
+                                   }}
+                                   render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                             {...field}
-                                             placeholder="Email"
+                                             placeholder="Last name"
+                                             onBlur={onBlur}
+                                             onChangeText={onChange}
+                                             value={value}
                                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
                                         />
                                    )}
+                                   name="email"
                               />
                          </View>
                     </View>
@@ -78,31 +138,40 @@ export default function Register() {
                               <Text>Telefone</Text>
                               <Controller
                                    control={control}
-                                   name="cellPhone"
-                                   render={({ field }) => (
+                                   rules={{
+                                        maxLength: 100,
+                                   }}
+                                   render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                             {...field}
-                                             placeholder="Telefone"
+                                             placeholder="Last name"
+                                             onBlur={onBlur}
+                                             onChangeText={onChange}
+                                             value={value}
                                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         />
                                    )}
+                                   name="cellPhone"
                               />
                          </View>
                          <View className="w-[48%] h-20">
                               <Text>Genero</Text>
                               <Controller
                                    control={control}
-                                   name="gender"
-                                   render={({ field }) => (
+                                   rules={{
+                                        maxLength: 100,
+                                   }}
+                                   render={({ field: { onChange, onBlur, value } }) => (
                                         <TextInput
-                                             {...field}
-                                             placeholder="Genero"
+                                             placeholder="Last name"
+                                             onBlur={onBlur}
+                                             onChangeText={onChange}
+                                             value={value}
                                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                         />
                                    )}
+                                   name="gender"
                               />
                          </View>
-
                     </View>
 
                     <Controller
@@ -113,27 +182,27 @@ export default function Register() {
                                    <View className="flex-row border border-gray-300 rounded-lg overflow-hidden">
                                         <TouchableOpacity
                                              style={[
-                                                  value === 'tecnico' ?
+                                                  value === 'technical' ?
                                                        { backgroundColor: '#3b82f6', borderColor: '#3b82f6' } :
                                                        { backgroundColor: '#ffffff', borderColor: '#d1d5db' },
                                                   { flex: 1, padding: 16, borderRightWidth: 1 }
                                              ]}
-                                             onPress={() => onChange('tecnico')}
+                                             onPress={() => onChange('technical')}
                                         >
-                                             <Text style={{ textAlign: 'center', color: value === 'tecnico' ? '#ffffff' : '#3b82f6' }}>
+                                             <Text style={{ textAlign: 'center', color: value === 'technical' ? '#ffffff' : '#3b82f6' }}>
                                                   Técnico
                                              </Text>
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                              style={[
-                                                  value === 'cliente' ?
+                                                  value === 'user' ?
                                                        { backgroundColor: '#3b82f6', borderColor: '#3b82f6' } :
                                                        { backgroundColor: '#ffffff', borderColor: '#d1d5db' },
                                                   { flex: 1, padding: 16 }
                                              ]}
-                                             onPress={() => onChange('cliente')}
+                                             onPress={() => onChange('user')}
                                         >
-                                             <Text style={{ textAlign: 'center', color: value === 'cliente' ? '#ffffff' : '#3b82f6' }}>
+                                             <Text style={{ textAlign: 'center', color: value === 'user' ? '#ffffff' : '#3b82f6' }}>
                                                   Cliente
                                              </Text>
                                         </TouchableOpacity>
@@ -142,12 +211,8 @@ export default function Register() {
                          )}
                     />
 
-                    <TouchableOpacity
-                         className="bg-blue-500 hover:bg-blue-700 font-bold py-4 px-6 rounded mt-4"
-                         onPress={handleSubmit(onSubmit)}
-                    >
-                         <Text className="text-center font-medium text-lg text-white">Submit</Text>
-                    </TouchableOpacity>
+
+                    <Button title="Submit" onPress={handleSubmit(onSubmit)} />
                </View >
           </Container >
      )

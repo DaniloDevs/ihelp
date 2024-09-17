@@ -9,7 +9,6 @@ import axios from "axios"
 const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string
 
 function InitialLayout() {
-    const [data, setData] = useState<any>();
     const { isSignedIn, isLoaded } = useAuth()
     const { user } = useUser()
 
@@ -26,12 +25,12 @@ function InitialLayout() {
                     }
 
                     // Realiza a requisição para o servidor
-                    const response = await axios.get(`http://10.0.0.120:3031/user/${user.id}`);
+                    const response = await axios.get(`http://10.0.2.40:3031/user/${user.id}`);
                     const data = response.data; // Supondo que os dados da resposta estão em `data`
 
                     if (data.existUser) {
                         // Verifica o tipo de usuário
-                        if (data.user.userType === "User") {
+                        if (data.user.userType === "cliente") {
                             router.replace("/(auth)/(user)");
                         } else {
                             router.replace("/(auth)/(technical)");
@@ -45,8 +44,8 @@ function InitialLayout() {
                 }
             } else {
                 // Se o usuário não está autenticado, redireciona para a página de login
-                // router.replace("/login");
-                router.replace("/register");
+                router.replace("/login");
+                // router.replace("/register");
             }
         };
 
