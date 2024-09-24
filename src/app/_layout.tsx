@@ -16,7 +16,7 @@ function InitialLayout() {
     useEffect(() => {
         if (!isLoaded) return; // Aguarda o carregamento do contexto
 
-        const checkUser = async () => {
+        const fetchUser = async () => {
             if (isSignedIn) {
                 try {
                     if (!user?.id) {
@@ -26,14 +26,12 @@ function InitialLayout() {
 
                     // Realiza a requisição para o servidor
                     const response = await axios.get(`http://10.0.2.40:3031/user/${user.id}`);
-                    const data = response.data; // Supondo que os dados da resposta estão em `data`
-
+                    const data = response.data;
                     if (data.existUser) {
-                        // Verifica o tipo de usuário
-                        if (data.user.userType === "cliente") {
-                            router.replace("/(auth)/(user)");
+                        if (data.user.userType === "client") {
+                            router.replace("/(auth)/(user)/");
                         } else {
-                            router.replace("/(auth)/(technical)");
+                            router.replace("/(auth)/(technical)/");
                         }
                     } else {
                         // Se o usuário não existe, redireciona para a página de registro
@@ -45,20 +43,19 @@ function InitialLayout() {
             } else {
                 // Se o usuário não está autenticado, redireciona para a página de login
                 router.replace("/login");
-                // router.replace("/register");
             }
         };
 
-        checkUser();
-    }, [isSignedIn, isLoaded, user, router]);
+        fetchUser(); // Chama a função assíncrona
+    }, [isLoaded, isSignedIn, user, router]);
 
-    return isLoaded ? (
-        <Slot />
-    ) : (
-        <ActivityIndicator
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        />
-    )
+return isLoaded ? (
+    <Slot />
+) : (
+    <ActivityIndicator
+        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+    />
+)
 }
 
 export default function Layout() {

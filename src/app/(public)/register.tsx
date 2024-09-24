@@ -42,13 +42,17 @@ export default function Register() {
                     phoneNumber: data.cellPhone,
                     userType: data.userType,
                });
-               console.log(user)
                console.log('Usuário criado com sucesso:', response.data);
 
                // Resetando o formulário após a submissão
 
                reset();
-               router.replace('/');
+
+               if(data.userType === "client") { 
+                    router.replace('/(auth)/(user)/')
+               }
+
+               router.replace('/(auth)/(technical)');
           } catch (error: any) {
                // Tratamento de erros
                if (error.response) {
@@ -195,14 +199,14 @@ export default function Register() {
                                         </TouchableOpacity>
                                         <TouchableOpacity
                                              style={[
-                                                  value === 'user' ?
+                                                  value === 'client' ?
                                                        { backgroundColor: '#3b82f6', borderColor: '#3b82f6' } :
                                                        { backgroundColor: '#ffffff', borderColor: '#d1d5db' },
                                                   { flex: 1, padding: 16 }
                                              ]}
-                                             onPress={() => onChange('user')}
+                                             onPress={() => onChange('client')}
                                         >
-                                             <Text style={{ textAlign: 'center', color: value === 'user' ? '#ffffff' : '#3b82f6' }}>
+                                             <Text style={{ textAlign: 'center', color: value === 'client' ? '#ffffff' : '#3b82f6' }}>
                                                   Cliente
                                              </Text>
                                         </TouchableOpacity>

@@ -22,7 +22,7 @@ export default function HomeScreenUser() {
 
         <TouchableOpacity
           activeOpacity={0.8}
-          className='bg-[#2158AC] w-64 h-64 items-center justify-center rounded-full'
+          className='bg-[#2158AC] w-64 h-16 items-center justify-center rounded-md'
           onPress={() => {
             Alert.alert('🚧 Em desenvolvimento 🚧', 'A funcionalidade ainda está sendo desenvolvida.', [
               { text: ' OK' },
