@@ -1,70 +1,73 @@
-import { ClerkLoaded, ClerkProvider, useAuth, useUser } from "@clerk/clerk-expo"
-import { router, Slot } from "expo-router"
-import "../styles/global.css"
-import { useEffect, useState } from "react"
-import { ActivityIndicator } from "react-native"
-import { Token } from "../storage/token"
-import axios from "axios"
+import { ClerkLoaded, ClerkProvider, useAuth, useUser } from "@clerk/clerk-expo";
+import { router, Slot } from "expo-router";
+import "../styles/global.css";
+import { useEffect } from "react";
+import { ActivityIndicator } from "react-native";
+import { Token } from "../storage/token";
+import axios from "axios";
+import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 
-const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string
+const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string;
+
+async function fetchUserData(userId: string) {
+    try {
+        const response = await axios.get(`http://10.0.0.74:3031/user/${userId}`);
+        return response.data;
+    } catch (error: any) {
+        console.error("Error fetching user data:", error.message);
+        throw error;
+    }
+}
 
 function InitialLayout() {
-    const { isSignedIn, isLoaded } = useAuth()
-    const { user } = useUser()
-
+    const { isSignedIn, isLoaded } = useAuth();
+    const { user } = useUser();
 
     useEffect(() => {
-        if (!isLoaded) return; // Aguarda o carregamento do contexto
+        const handleUserRedirect = async () => {
+            if (!isLoaded) return; // Aguarda o carregamento do contexto
 
-        const fetchUser = async () => {
-            if (isSignedIn) {
+            if (isSignedIn && user?.id) {
                 try {
-                    if (!user?.id) {
-                        console.error("ID de usuário não disponível");
-                        return;
-                    }
+                    const data = await fetchUserData(user.id);
 
-                    // Realiza a requisição para o servidor
-                    const response = await axios.get(`http://10.0.2.40:3031/user/${user.id}`);
-                    const data = response.data;
-                    if (data.existUser) {
-                        if (data.user.userType === "client") {
-                            router.replace("/(auth)/(user)/");
-                        } else {
-                            router.replace("/(auth)/(technical)/");
-                        }
+                    if (data.ExistUser) {
+                        const route = data.User.userType === "client"
+                            ? "/(auth)/(user)/"
+                            : "/(auth)/(technical)/"
+                        router.replace(route)
                     } else {
-                        // Se o usuário não existe, redireciona para a página de registro
+                        console.log("Usuário não encontrado, redirecionando para registro.");
                         router.replace("/register");
                     }
-                } catch (error: any) {
-                    console.error("Erro ao buscar usuário:", error.message);
+                } catch (error) {
+                    console.error("Erro ao buscar dados do usuário:", error);
+                    // Você pode adicionar feedback visual para o usuário aqui, se desejado
                 }
             } else {
-                // Se o usuário não está autenticado, redireciona para a página de login
+                console.log("Usuário não autenticado, redirecionando para login.");
                 router.replace("/login");
             }
         };
 
-        fetchUser(); // Chama a função assíncrona
-    }, [isLoaded, isSignedIn, user, router]);
+        handleUserRedirect();
+    }, [ isSignedIn, user?.id]); // Dependências atualizadas
 
-return isLoaded ? (
-    <Slot />
-) : (
-    <ActivityIndicator
-        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-    />
-)
+    return isLoaded ? (
+        <Slot />
+    ) : (
+        <ActivityIndicator style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} />
+    );
 }
 
 export default function Layout() {
     return (
         <ClerkProvider publishableKey={key} tokenCache={Token}>
             <ClerkLoaded>
+            <GluestackUIProvider>
                 <InitialLayout />
+            </GluestackUIProvider>
             </ClerkLoaded>
         </ClerkProvider>
-    )
+    );
 }
-

@@ -1,48 +1,30 @@
 import { TouchableOpacity, Text, Image, View } from "react-native";
 
-interface CardProps {
-     tecnico: string
-     categoria: string
-     servivo: string
-     imgUrl: string
-     preco: string
-}
 
-export function CardOrder({ tecnico,preco, categoria, servivo, imgUrl }: CardProps) {
+export function CardOrder(
+     typeService: string,
+     description: string,
+     accepted: boolean
+) {
      return (
-          <TouchableOpacity activeOpacity={0.6} className='w-4/5 rounded-xl border p-4 border-gray-200 shadow-lg gap-10 bg-slate-50'>
-               <View className='flex flex-row justify-between'>
-                    <View>
-                         <View className='flex flex-row justify-between  items-center'>
-                              <Text className='text-lg font-semibold'>
-                                   {tecnico}
-                              </Text>
-                         </View>
-
-                         <View>
-                              <Text className='text-sm'>
-                                   Categoria: {categoria}
-                              </Text>
-
-                              <Text className='text-sm'>
-                                   Serviço Prestado: {servivo}
-                              </Text>
-                         </View>
-                    </View>
-                    <Image
-                         source={{
-                              uri: imgUrl
-                         }}
-                         className='w-14 h-14 rounded-full'
-                    />
-               </View>
-               <View className='flex flex-row justify-between'>
-                    <Text>
-                         R${preco}
+          <View  className=' rounded-xl border p-4 border-gray-200 shadow-lg gap-10 bg-slate-50'>
+               {/* Informação principal do card */}
+               <View>
+                    {/* Exibir o tipo de problema */}
+                    <Text className='text-lg font-semibold'>
+                         Tipo de problema: {typeService}
                     </Text>
-                    <Text className='font-roboto' > Informações </Text>
-               </View>
 
-          </TouchableOpacity>
+                    {/* Exibir a descrição do problema */}
+                    <Text className='text-sm mt-2'>
+                         Descrição: {description}
+                    </Text>
+
+                    {/* Exibir o status de aceitação */}
+                    <Text className='text-sm mt-2'>
+                         Status: {accepted ? 'Aceito' : 'Não aceito'}
+                    </Text>
+               </View>
+          </View>
      )
 }

@@ -33,7 +33,7 @@ export default function Register() {
      const onSubmit: SubmitHandler<IFormInput> = async (data) => {
           const id = user?.id
           try {
-               const response = await axios.post('http://10.0.2.40:3031/user', {
+               const response = await axios.post('http://10.0.0.74:3031/user', {
                     id, // id vindo do Clerk
                     firstName: data.firstName,
                     lastName: data.lastName,
@@ -48,7 +48,7 @@ export default function Register() {
 
                reset();
 
-               if(data.userType === "client") { 
+               if(response.data.userType === "client") { 
                     router.replace('/(auth)/(user)/')
                }
 
@@ -66,6 +66,7 @@ export default function Register() {
           }
 
      }
+     
      return (
           <Container >
                <Header title="Cadastro" />
@@ -86,7 +87,6 @@ export default function Register() {
                                              onChangeText={onChange}
                                              value={value}
                                              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-
                                         />
                                    )}
                                    name="firstName"
@@ -214,7 +214,6 @@ export default function Register() {
                               </View>
                          )}
                     />
-
 
                     <Button title="Submit" onPress={handleSubmit(onSubmit)} />
                </View >
