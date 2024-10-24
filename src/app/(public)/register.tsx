@@ -48,11 +48,15 @@ export default function Register() {
 
                reset();
 
-               if(response.data.userType === "client") { 
+               if (response.data.userType === "client") {
                     router.replace('/(auth)/(user)/')
+               } else if (response.data.userType === "technical") {
+                    router.replace('/(auth)/(technical)');
+               } else {
+                     router.replace('/');
                }
 
-               router.replace('/(auth)/(technical)');
+               
           } catch (error: any) {
                // Tratamento de erros
                if (error.response) {
@@ -66,7 +70,7 @@ export default function Register() {
           }
 
      }
-     
+
      return (
           <Container >
                <Header title="Cadastro" />
@@ -137,46 +141,7 @@ export default function Register() {
                          </View>
                     </View>
 
-                    <View className="flex justify-between flex-row">
-                         <View className="w-[48%] h-20">
-                              <Text>Telefone</Text>
-                              <Controller
-                                   control={control}
-                                   rules={{
-                                        maxLength: 100,
-                                   }}
-                                   render={({ field: { onChange, onBlur, value } }) => (
-                                        <TextInput
-                                             placeholder="Last name"
-                                             onBlur={onBlur}
-                                             onChangeText={onChange}
-                                             value={value}
-                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        />
-                                   )}
-                                   name="cellPhone"
-                              />
-                         </View>
-                         <View className="w-[48%] h-20">
-                              <Text>Genero</Text>
-                              <Controller
-                                   control={control}
-                                   rules={{
-                                        maxLength: 100,
-                                   }}
-                                   render={({ field: { onChange, onBlur, value } }) => (
-                                        <TextInput
-                                             placeholder="Last name"
-                                             onBlur={onBlur}
-                                             onChangeText={onChange}
-                                             value={value}
-                                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        />
-                                   )}
-                                   name="gender"
-                              />
-                         </View>
-                    </View>
+
 
                     <Controller
                          control={control}

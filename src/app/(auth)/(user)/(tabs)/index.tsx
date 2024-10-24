@@ -1,7 +1,7 @@
 import { Header } from '@/src/components/header';
 import Container from '@/src/components/ui/container';
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Button, FlatList, } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, SafeAreaView, Button, FlatList, } from 'react-native';
 import { useUser } from "@clerk/clerk-expo";
 import axios from 'axios';
 import { Actionsheet, ActionsheetContent, } from '@/components/ui/actionsheet';
@@ -127,7 +127,7 @@ export default function HomeScreenUser() {
 
         )}
 
-        <Actionsheet isOpen={showActionsheet} snapPoints={[50]} onClose={handleClose}>
+        <Actionsheet isOpen={showActionsheet} snapPoints={[70]} onClose={handleClose}>
           <ActionsheetContent className='w-full flex flex-col gap-4 pt-4'>
             <View className='flex flex-col gap-2 w-[90%]'>
               <View className="w-full flex flex-col gap-2">
@@ -140,11 +140,11 @@ export default function HomeScreenUser() {
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                      placeholder="Aparelho Defeituso"
+                      placeholder="Digite o nome do aparelho com defeito"
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      className="bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5"
                     />
                   )}
                   name="serviceType"
@@ -152,7 +152,7 @@ export default function HomeScreenUser() {
               </View>
 
               <View className="w-full flex flex-col gap-2">
-                <Text>Descreva seu problema</Text>
+                <Text>Descreva o problema que você está enfrentando:</Text>
 
                 <Controller
                   control={control}
@@ -160,12 +160,19 @@ export default function HomeScreenUser() {
                     required: true,
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-32 p-2.5"
-                    />
+                   
+                      <TextInput
+                        placeholder="Descreva seu problema aqui"
+                        editable
+                        multiline
+                        
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        className="bg-gray-50 border border-gray-300 text-gray-900  rounded-lg focus:ring-blue-500 focus:border-blue-500  w-full p-2.5 h-20"
+                      />
+                   
+                    
                   )}
                   name="description"
                 />

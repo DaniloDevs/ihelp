@@ -27,8 +27,14 @@ function InitialLayout() {
         const handleUserRedirect = async () => {
             if (!isLoaded) return; // Aguarda o carregamento do contexto
 
+            if (!isSignedIn){
+                console.log("Usuário não autenticado, redirecionando para login.");
+                router.replace("/login");
+            }
+            
             if (isSignedIn && user?.id) {
                 try {
+
                     const data = await fetchUserData(user.id);
 
                     if (data.ExistUser) {
@@ -44,14 +50,11 @@ function InitialLayout() {
                     console.error("Erro ao buscar dados do usuário:", error);
                     // Você pode adicionar feedback visual para o usuário aqui, se desejado
                 }
-            } else {
-                console.log("Usuário não autenticado, redirecionando para login.");
-                router.replace("/login");
-            }
+            } 
         };
 
         handleUserRedirect();
-    }, [ isSignedIn, user?.id]); // Dependências atualizadas
+    }, [isSignedIn, user?.id]); // Dependências atualizadas
 
     return isLoaded ? (
         <Slot />
@@ -64,9 +67,9 @@ export default function Layout() {
     return (
         <ClerkProvider publishableKey={key} tokenCache={Token}>
             <ClerkLoaded>
-            <GluestackUIProvider>
-                <InitialLayout />
-            </GluestackUIProvider>
+                <GluestackUIProvider>
+                    <InitialLayout />
+                </GluestackUIProvider>
             </ClerkLoaded>
         </ClerkProvider>
     );

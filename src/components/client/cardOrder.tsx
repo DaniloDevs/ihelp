@@ -7,7 +7,7 @@ export function CardOrder(
      accepted: boolean
 ) {
      return (
-          <View  className=' rounded-xl border p-4 border-gray-200 shadow-lg gap-10 bg-slate-50'>
+          <View  className=' rounded-xl border p-4 border-gray-200 mb-4 shadow-lg gap-10 bg-slate-50'>
                {/* Informação principal do card */}
                <View>
                     {/* Exibir o tipo de problema */}
