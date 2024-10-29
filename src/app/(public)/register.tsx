@@ -48,14 +48,12 @@ export default function Register() {
 
                reset();
 
-               if (response.data.userType === "client") {
+               console.log(response.data.User.userType)
+               if (data.userType === "client") {
                     router.replace('/(auth)/(user)/')
                } else if (response.data.userType === "technical") {
                     router.replace('/(auth)/(technical)');
-               } else {
-                     router.replace('/');
                }
-
                
           } catch (error: any) {
                // Tratamento de erros
@@ -68,7 +66,6 @@ export default function Register() {
                     console.error('Erro ao configurar a requisição:', error.message);
                }
           }
-
      }
 
      return (

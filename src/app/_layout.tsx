@@ -12,6 +12,7 @@ const key = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY as string;
 async function fetchUserData(userId: string) {
     try {
         const response = await axios.get(`http://10.0.0.74:3031/user/${userId}`);
+        console.log(response.data)
         return response.data;
     } catch (error: any) {
         console.error("Error fetching user data:", error.message);
