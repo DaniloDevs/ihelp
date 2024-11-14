@@ -22,7 +22,7 @@ export default function HomeScreenTechnical() {
     return axios.get(`http://10.0.0.74:3031/services`);
   };
 
-
+console.log(services)
 
   const getData = async () => {
     try {

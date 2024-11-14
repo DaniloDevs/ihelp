@@ -2,7 +2,6 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { Header } from "@/src/components/header";
 import Container from "@/src/components/ui/container";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Input, InputField } from "@/components/ui/input";
 import axios from "axios";
 import { router } from "expo-router"
 import { useUser } from "@clerk/clerk-expo";
@@ -53,6 +52,8 @@ export default function Register() {
                     router.replace('/(auth)/(user)/')
                } else if (response.data.userType === "technical") {
                     router.replace('/(auth)/(technical)');
+               } else {
+                    router.replace('/');
                }
                
           } catch (error: any) {
